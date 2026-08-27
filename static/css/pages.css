@@ -1,0 +1,297 @@
+/* =========================================================
+   pages.css — блоки конкретных страниц:
+   главная (hero, шаги, преимущества), вход/регистрация, профиль
+   ========================================================= */
+
+/* ================= Главная: hero ================= */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 56px;
+  align-items: center;
+  padding: 72px 0 48px;
+}
+
+.hero__title {
+  font-size: 50px;
+  letter-spacing: -1px;
+  margin: 18px 0 16px;
+}
+.hero__title em { color: var(--accent); font-style: italic; }
+
+.hero__text {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 44ch;
+}
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.hero__stats {
+  display: flex;
+  gap: 34px;
+  margin-top: 44px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.hero__stat b { display: block; font-family: var(--font-title); font-size: 26px; }
+.hero__stat span { font-size: 14px; color: var(--muted); }
+
+/* превью-окно справа */
+.window {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.window__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--line);
+}
+.window__dot { width: 10px; height: 10px; border-radius: 50%; background: #d8cfc2; }
+.window__dot:first-child { background: #e4a08a; }
+.window__body { padding: 22px; display: grid; gap: 14px; }
+
+.skeleton { height: 12px; border-radius: 6px; background: var(--surface-alt); }
+.skeleton--w60 { width: 60%; }
+.skeleton--w40 { width: 40%; }
+.skeleton--tall { height: 74px; }
+
+.window__row { display: flex; align-items: center; gap: 12px; }
+.window__avatar {
+  width: 46px; height: 46px; flex: none;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  display: grid; place-items: center;
+  font-weight: 700;
+}
+.window__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ================= Главная: шаги ================= */
+
+.section { padding: 56px 0; }
+.section__head { max-width: 52ch; margin-bottom: 34px; }
+.section__title { font-size: 32px; margin: 10px 0 10px; }
+.section__text { color: var(--ink-soft); }
+
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.step {
+  position: relative;
+  padding: 28px 24px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.step__num {
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+.step h3 { font-size: 19px; margin: 8px 0 8px; }
+.step p { color: var(--ink-soft); font-size: 15px; }
+
+/* ================= Главная: список возможностей ================= */
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.tile {
+  display: flex;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.tile__icon {
+  width: 42px; height: 42px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  font-size: 19px;
+}
+.tile h3 { font-size: 17px; margin-bottom: 4px; }
+.tile p { font-size: 15px; color: var(--ink-soft); }
+
+/* ================= Полоса призыва ================= */
+
+.cta {
+  margin-top: 20px;
+  padding: 44px 40px;
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+.cta h2 { font-size: 28px; color: #fff; }
+.cta p { color: #cdc5bb; margin-top: 6px; }
+.cta .btn--solid { background: var(--accent); }
+.cta .btn--outline { color: #fff; border-color: #4a443e; }
+.cta .btn--outline:hover { background: #2a2724; border-color: #6b635a; color: #fff; }
+
+/* ================= Вход и регистрация ================= */
+
+.auth {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 68px);
+}
+
+/* левая колонка-«витрина» */
+.auth__aside {
+  padding: 64px 56px;
+  background: var(--ink);
+  color: #efe9e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.auth__quote {
+  font-family: var(--font-title);
+  font-size: 30px;
+  line-height: 1.35;
+  color: #fff;
+}
+.auth__author { margin-top: 18px; color: #a49b91; font-size: 15px; }
+
+.auth__list { margin-top: 44px; display: grid; gap: 14px; }
+.auth__list li { list-style: none; display: flex; gap: 12px; align-items: flex-start; color: #cdc5bb; font-size: 15px; }
+.auth__list b { color: #fff; font-weight: 600; }
+.auth__check { color: var(--accent); font-weight: 700; }
+
+/* правая колонка с формой */
+.auth__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+.auth__box { width: 100%; max-width: 420px; }
+.auth__title { font-size: 32px; margin-bottom: 8px; }
+.auth__subtitle { color: var(--muted); margin-bottom: 28px; }
+.auth__foot { margin-top: 22px; text-align: center; color: var(--ink-soft); font-size: 15px; }
+
+.auth__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* подсказка про демо-режим */
+.demo-note {
+  margin-top: 26px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--muted);
+}
+.demo-note code { font-family: var(--font-mono); color: var(--ink-soft); }
+
+/* ================= Профиль ================= */
+
+.profile { padding: 40px 0 20px; }
+
+.profile__head {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.avatar {
+  width: 84px; height: 84px; flex: none;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  display: grid; place-items: center;
+  font-family: var(--font-title);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.profile__name { font-size: 28px; }
+.profile__email { color: var(--muted); }
+.profile__head .btn { margin-left: auto; }
+
+/* вкладки */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 26px 0 26px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.tab {
+  padding: 12px 16px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--ink); }
+.tab.is-active { color: var(--accent-dark); border-bottom-color: var(--accent); }
+
+.tab-panel { display: none; }
+.tab-panel.is-active { display: block; animation: fade .18s ease-out; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* карточка со списком данных */
+.data-list { display: grid; gap: 0; }
+.data-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.data-list div:last-child { border-bottom: 0; }
+.data-list dt { color: var(--muted); }
+.data-list dd { color: var(--ink); text-align: right; word-break: break-word; }
+
+.profile__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items: start; }
+
+.danger-zone {
+  border-color: #f0d6d6;
+  background: #fffafa;
+}
+
+/* ================= Адаптив ================= */
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
+  .hero__title { font-size: 38px; }
+  .auth { grid-template-columns: 1fr; min-height: auto; }
+  .auth__aside { display: none; }
+  .profile__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .steps, .grid-2 { grid-template-columns: 1fr; }
+  .hero__stats { flex-wrap: wrap; gap: 20px 30px; }
+  .cta { padding: 32px 24px; }
+  .profile__head .btn { margin-left: 0; width: 100%; }
+}
