@@ -1,89 +1,145 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo — вход</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexo — вход</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}" />
+  </head>
+  <body>
+    {% include 'include/header.html' %}
 
-{% include 'include/header.html' %}
-
-
-  <main class="page auth">
-
-    <aside class="auth__aside">
-      <p class="auth__quote">«Хороший вход — это когда пользователь не гадает, что пошло не так».</p>
-      <p class="auth__author">Nexo — учебный шаблон</p>
-
-      <ul class="auth__list">
-        <li><span class="auth__check">✓</span><span><b>Понятные ошибки:</b> текст сервера показывается как есть</span></li>
-        <li><span class="auth__check">✓</span><span><b>Сессия</b> проверяется запросом <code>/auth/me</code></span></li>
-        <li><span class="auth__check">✓</span><span><b>Возврат назад:</b> поддерживается <code>?next=</code></span></li>
-      </ul>
-    </aside>
-
-    <div class="auth__main">
-      <div class="auth__box">
-        <h1 class="auth__title">С возвращением</h1>
-        <p class="auth__subtitle">Войдите, чтобы открыть личный кабинет</p>
-
-        <form id="loginForm" class="form" method="post" action="/api/auth/login/">
-
-          <div class="notice" data-notice></div>
-
-          <div class="field">
-            <label class="field__label" for="email">E-mail</label>
-            <input class="input" type="email" id="email" name="email"
-                   placeholder="mail@example.com" autocomplete="email" autofocus required>
-            <small class="field__error" data-error="email"></small>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="password">Пароль</label>
-            <div class="field__control">
-              <input class="input" type="password" id="password" name="password"
-                     placeholder="Ваш пароль" autocomplete="current-password" required>
-              <button class="peek" type="button" data-peek="password" aria-label="Показать пароль">👁</button>
-            </div>
-            <small class="field__error" data-error="password"></small>
-          </div>
-
-          <div class="auth__row">
-            <label class="checkbox">
-              <input type="checkbox" name="remember" value="1" checked>
-              <span>Запомнить меня</span>
-            </label>
-            <a href="#">Забыли пароль?</a>
-          </div>
-
-          <button type="submit" class="btn btn--solid btn--block" data-loading-text="Входим…">
-            Войти
-          </button>
-        </form>
-
-        <p class="auth__foot">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
-
-        <p class="demo-note">
-          Демо-режим: проверьте вход аккаунтом, который зарегистрировали в этом браузере.
-          Реальный сервер подключается в <code>js/config.js</code>.
+    <main class="page auth">
+      <aside class="auth__aside">
+        <p class="auth__quote">
+          «Хороший вход — это когда пользователь не гадает, что пошло не так».
         </p>
-      </div>
+        <p class="auth__author">Nexo — учебный шаблон</p>
+
+        <ul class="auth__list">
+          <li>
+            <span class="auth__check">✓</span
+            ><span
+              ><b>Понятные ошибки:</b> текст сервера показывается как есть</span
+            >
+          </li>
+          <li>
+            <span class="auth__check">✓</span
+            ><span
+              ><b>Сессия</b> проверяется запросом <code>/auth/me</code></span
+            >
+          </li>
+          <li>
+            <span class="auth__check">✓</span
+            ><span
+              ><b>Возврат назад:</b> поддерживается <code>?next=</code></span
+            >
+          </li>
+        </ul>
+      </aside>
+
+      <div class="auth__main">
+        <div class="auth__box">
+          <h1 class="auth__title">С возвращением</h1>
+          <p class="auth__subtitle">Войдите, чтобы открыть личный кабинет</p>
+
+          <form
+  id="loginForm"
+  class="form"
+  method="POST"
+  action="{% url 'login' %}"
+>
+  {% csrf_token %}
+
+  {% if messages %}
+    <div class="notice">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
     </div>
-  </main>
+  {% endif %}
 
-{% load static %}
+  <div class="field">
+    <label class="field__label" for="email">E-mail</label>
 
-<script src="{% static 'js/config.js' %}"></script>
-<script src="{% static 'js/api.js' %}"></script>
-<script src="{% static 'js/mock-api.js' %}"></script>
-<script src="{% static 'js/forms.js' %}"></script>
-<script src="{% static 'js/session.js' %}"></script>
-<script src="{% static 'js/ui.js' %}"></script>
-<script src="{% static 'js/login.js' %}"></script>
-</body>
+    <input
+      class="input"
+      type="email"
+      id="email"
+      name="email"
+      placeholder="mail@example.com"
+      autocomplete="email"
+      autofocus
+      required
+    />
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="password">Пароль</label>
+
+    <div class="field__control">
+      <input
+        class="input"
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Ваш пароль"
+        autocomplete="current-password"
+        required
+      />
+
+      <button
+        class="peek"
+        type="button"
+        data-peek="password"
+        aria-label="Показать пароль"
+      >
+        👁
+      </button>
+    </div>
+  </div>
+
+  <div class="auth__row">
+    <label class="checkbox">
+      <input type="checkbox" name="remember" value="1" checked />
+      <span>Запомнить меня</span>
+    </label>
+
+    <a href="#">Забыли пароль?</a>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn--solid btn--block"
+  >
+    Войти
+  </button>
+</form>
+
+          <p class="auth__foot">
+            Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
+          </p>
+
+          <p class="demo-note">
+            Демо-режим: проверьте вход аккаунтом, который зарегистрировали в
+            этом браузере. Реальный сервер подключается в
+            <code>js/config.js</code>.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    {% load static %}
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/api.js' %}"></script>
+    <script src="{% static 'js/mock-api.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script src="{% static 'js/session.js' %}"></script>
+    <script src="{% static 'js/ui.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+  </body>
 </html>

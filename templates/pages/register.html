@@ -1,115 +1,202 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo — регистрация</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexo — регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}" />
+  </head>
+  <body>
+    {% include 'include/header.html' %}
 
-{% include 'include/header.html' %}
+    <main class="page auth">
+      <!-- Левая колонка — оформление -->
+      <aside class="auth__aside">
+        <p class="auth__quote">
+          «Форма — это контракт между страницей и сервером. Пусть он будет
+          честным».
+        </p>
+        <p class="auth__author">Nexo — учебный шаблон</p>
 
+        <ul class="auth__list">
+          <li>
+            <span class="auth__check">✓</span
+            ><span
+              ><b>Настоящая форма:</b> method, action и name у каждого
+              поля</span
+            >
+          </li>
+          <li>
+            <span class="auth__check">✓</span
+            ><span
+              ><b>Ошибки сервера</b> встают под свои поля автоматически</span
+            >
+          </li>
+          <li>
+            <span class="auth__check">✓</span
+            ><span><b>Один адрес API</b> в config.js — и кабинет живой</span>
+          </li>
+        </ul>
+      </aside>
 
-  <main class="page auth">
+      <!-- Правая колонка — форма -->
+      <div class="auth__main">
+        <div class="auth__box">
+          <h1 class="auth__title">Создать аккаунт</h1>
+          <p class="auth__subtitle">Займёт меньше минуты</p>
 
-    <!-- Левая колонка — оформление -->
-    <aside class="auth__aside">
-      <p class="auth__quote">«Форма — это контракт между страницей и сервером. Пусть он будет честным».</p>
-      <p class="auth__author">Nexo — учебный шаблон</p>
-
-      <ul class="auth__list">
-        <li><span class="auth__check">✓</span><span><b>Настоящая форма:</b> method, action и name у каждого поля</span></li>
-        <li><span class="auth__check">✓</span><span><b>Ошибки сервера</b> встают под свои поля автоматически</span></li>
-        <li><span class="auth__check">✓</span><span><b>Один адрес API</b> в config.js — и кабинет живой</span></li>
-      </ul>
-    </aside>
-
-    <!-- Правая колонка — форма -->
-    <div class="auth__main">
-      <div class="auth__box">
-        <h1 class="auth__title">Создать аккаунт</h1>
-        <p class="auth__subtitle">Займёт меньше минуты</p>
-
-        <!--
+          <!--
           method и action — рабочие: без JavaScript браузер отправит форму
           обычным POST на этот адрес. Скрипт лишь перехватывает отправку,
           чтобы показать ошибки без перезагрузки страницы.
         -->
-        <form id="registerForm" class="form" method="post" action="/api/auth/register/">
+          <form
+  id="registerForm"
+  class="form"
+  method="POST"
+  action="{% url 'register' %}"
+>
+  {% csrf_token %}
 
-          <!-- общий баннер: сюда попадают ошибки, не привязанные к полю -->
-          <div class="notice" data-notice></div>
-
-          <div class="field">
-            <label class="field__label" for="name">Имя</label>
-            <input class="input" type="text" id="name" name="name"
-                   placeholder="Иван Иванов" autocomplete="name" required>
-            <small class="field__error" data-error="name"></small>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="email">E-mail</label>
-            <input class="input" type="email" id="email" name="email"
-                   placeholder="mail@example.com" autocomplete="email" required>
-            <small class="field__error" data-error="email"></small>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="password">Пароль</label>
-            <div class="field__control">
-              <input class="input" type="password" id="password" name="password"
-                     placeholder="Минимум 8 символов" autocomplete="new-password" required>
-              <button class="peek" type="button" data-peek="password" aria-label="Показать пароль">👁</button>
-            </div>
-            <small class="field__hint">Не короче 8 символов, не только цифры.</small>
-            <small class="field__error" data-error="password"></small>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="password2">Повторите пароль</label>
-            <div class="field__control">
-              <input class="input" type="password" id="password2" name="password2"
-                     placeholder="Ещё раз" autocomplete="new-password" required>
-              <button class="peek" type="button" data-peek="password2" aria-label="Показать пароль">👁</button>
-            </div>
-            <small class="field__error" data-error="password2"></small>
-          </div>
-
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox" name="agree" value="1">
-              <span>Я согласен с условиями использования и политикой конфиденциальности</span>
-            </label>
-            <small class="field__error" data-error="agree"></small>
-          </div>
-
-          <button type="submit" class="btn btn--solid btn--block" data-loading-text="Создаём аккаунт…">
-            Зарегистрироваться
-          </button>
-        </form>
-
-        <p class="auth__foot">Уже есть аккаунт? <a href="login.html">Войти</a></p>
-
-        <p class="demo-note">
-          Демо-режим: данные сохраняются в браузере. Чтобы подключить сервер,
-          откройте <code>js/config.js</code> и поставьте <code>USE_MOCK: false</code>.
-        </p>
-      </div>
+  {% if messages %}
+    <div class="notice">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
     </div>
-  </main>
+  {% endif %}
 
-{% load static %}
+  <div class="field">
+    <label class="field__label" for="name">Имя</label>
 
-<script src="{% static 'js/config.js' %}"></script>
-<script src="{% static 'js/api.js' %}"></script>
-<script src="{% static 'js/mock-api.js' %}"></script>
-<script src="{% static 'js/forms.js' %}"></script>
-<script src="{% static 'js/session.js' %}"></script>
-<script src="{% static 'js/ui.js' %}"></script>
-<script src="{% static 'js/register.js' %}"></script>
-</body>
+    <input
+      class="input"
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Иван Иванов"
+      autocomplete="name"
+      required
+    />
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="email">E-mail</label>
+
+    <input
+      class="input"
+      type="email"
+      id="email"
+      name="email"
+      placeholder="mail@example.com"
+      autocomplete="email"
+      required
+    />
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="password">Пароль</label>
+
+    <div class="field__control">
+      <input
+        class="input"
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Минимум 8 символов"
+        autocomplete="new-password"
+        required
+      />
+
+      <button
+        class="peek"
+        type="button"
+        data-peek="password"
+        aria-label="Показать пароль"
+      >
+        👁
+      </button>
+    </div>
+
+    <small class="field__hint">
+      Не короче 8 символов, не только цифры.
+    </small>
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="password2">
+      Повторите пароль
+    </label>
+
+    <div class="field__control">
+      <input
+        class="input"
+        type="password"
+        id="password2"
+        name="password2"
+        placeholder="Ещё раз"
+        autocomplete="new-password"
+        required
+      />
+
+      <button
+        class="peek"
+        type="button"
+        data-peek="password2"
+        aria-label="Показать пароль"
+      >
+        👁
+      </button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="checkbox">
+      <input
+        type="checkbox"
+        name="agree"
+        value="1"
+        required
+      />
+
+      <span>
+        Я согласен с условиями использования и политикой конфиденциальности
+      </span>
+    </label>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn--solid btn--block"
+  >
+    Зарегистрироваться
+  </button>
+</form>
+
+          <p class="auth__foot">
+            Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+          </p>
+
+          <p class="demo-note">
+            Демо-режим: данные сохраняются в браузере. Чтобы подключить сервер,
+            откройте <code>js/config.js</code> и поставьте
+            <code>USE_MOCK: false</code>.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    {% load static %}
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/api.js' %}"></script>
+    <script src="{% static 'js/mock-api.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script src="{% static 'js/session.js' %}"></script>
+    <script src="{% static 'js/ui.js' %}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
+  </body>
 </html>

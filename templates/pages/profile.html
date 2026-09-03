@@ -1,175 +1,278 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo — личный кабинет</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexo — личный кабинет</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}" />
+  </head>
+  <body>
+    {% include 'include/header.html' %}
 
-{% include 'include/header.html' %}
-
-
-  <!-- Скрыт, пока не подтвердилось, что пользователь авторизован (см. js/profile.js) -->
-  <main class="page profile hidden">
-    <div class="container">
-
-      <!-- Шапка кабинета -->
-      <div class="profile__head">
-        <div class="avatar" data-field="initials">—</div>
-        <div>
-          <h1 class="profile__name" data-field="name">—</h1>
-          <p class="profile__email" data-field="email">—</p>
-        </div>
-        <button type="button" class="btn btn--danger" data-logout="index.html">Выйти из аккаунта</button>
-      </div>
-
-      <!-- Вкладки -->
-      <div class="tabs" role="tablist">
-        <button type="button" class="tab is-active" data-tab="tab-overview">Обзор</button>
-        <button type="button" class="tab" data-tab="tab-settings">Настройки</button>
-        <button type="button" class="tab" data-tab="tab-security">Безопасность</button>
-      </div>
-
-      <!-- ============ Вкладка: обзор ============ -->
-      <section class="tab-panel is-active" id="tab-overview">
-        <div class="profile__grid">
-
-          <div class="card">
-            <h2 class="card__title">Данные аккаунта</h2>
-            <p class="card__hint">Приходят с сервера запросом <code>GET /auth/me</code>.</p>
-
-            <dl class="data-list">
-              <div><dt>ID</dt><dd data-field="id">—</dd></div>
-              <div><dt>Имя</dt><dd data-field="name">—</dd></div>
-              <div><dt>E-mail</dt><dd data-field="email">—</dd></div>
-              <div><dt>Город</dt><dd data-field="city">—</dd></div>
-              <div><dt>Дата регистрации</dt><dd data-field="date">—</dd></div>
-            </dl>
+    <!-- Скрыт, пока не подтвердилось, что пользователь авторизован (см. js/profile.js) -->
+    <main class="page profile ">
+      <div class="container">
+        <!-- Шапка кабинета -->
+        <div class="profile__head">
+          <div class="avatar" data-field="initials">—</div>
+          <div>
+            <h1 class="profile__name" data-field="name">—</h1>
+            <p class="profile__email" data-field="email">—</p>
           </div>
+          <button type="button" class="btn btn--danger" data-logout="/">
+            Выйти из аккаунта
+          </button>
+        </div>
 
-          <div class="card">
-            <h2 class="card__title">О себе</h2>
-            <p class="card__hint">Заполняется во вкладке «Настройки».</p>
-            <p data-field="about">—</p>
+        <!-- Вкладки -->
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab is-active" data-tab="tab-overview">
+            Обзор
+          </button>
+          <button type="button" class="tab" data-tab="tab-settings">
+            Настройки
+          </button>
+          <button type="button" class="tab" data-tab="tab-security">
+            Безопасность
+          </button>
+        </div>
+
+        <!-- ============ Вкладка: обзор ============ -->
+        <section class="tab-panel is-active" id="tab-overview">
+          <div class="profile__grid">
+            <div class="card">
+              <h2 class="card__title">Данные аккаунта</h2>
+              <p class="card__hint">
+                Приходят с сервера запросом <code>GET /auth/me</code>.
+              </p>
+
+              <dl class="data-list">
+                <div>
+                  <dt>ID</dt>
+                  <dd data-field="id">—</dd>
+                </div>
+                <div>
+                  <dt>Имя</dt>
+                  <dd data-field="name">—</dd>
+                </div>
+                <div>
+                  <dt>E-mail</dt>
+                  <dd data-field="email">—</dd>
+                </div>
+                <div>
+                  <dt>Город</dt>
+                  <dd data-field="city">—</dd>
+                </div>
+                <div>
+                  <dt>Дата регистрации</dt>
+                  <dd data-field="date">—</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="card">
+              <h2 class="card__title">О себе</h2>
+              <p class="card__hint">Заполняется во вкладке «Настройки».</p>
+              <p data-field="about">—</p>
+            </div>
           </div>
+        </section>
 
-        </div>
-      </section>
+        <!-- ============ Вкладка: настройки ============ -->
+        <section class="tab-panel" id="tab-settings">
+          <div class="card" style="max-width: 620px">
+            <h2 class="card__title">Редактировать профиль</h2>
+            <p class="card__hint">
+              Отправляется методом PATCH на <code>/profile/</code>.
+            </p>
 
-      <!-- ============ Вкладка: настройки ============ -->
-      <section class="tab-panel" id="tab-settings">
-        <div class="card" style="max-width:620px">
-          <h2 class="card__title">Редактировать профиль</h2>
-          <p class="card__hint">Отправляется методом PATCH на <code>/profile/</code>.</p>
-
-          <form id="profileForm" class="form" method="post" action="/api/profile/">
-
-            <div class="notice" data-notice></div>
-
-            <div class="field">
-              <label class="field__label" for="profile-name">Имя</label>
-              <input class="input" type="text" id="profile-name" name="name"
-                     placeholder="Ваше имя" autocomplete="name" required>
-              <small class="field__error" data-error="name"></small>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="profile-city">Город</label>
-              <input class="input" type="text" id="profile-city" name="city" placeholder="Алматы">
-              <small class="field__error" data-error="city"></small>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="profile-about">О себе</label>
-              <textarea class="textarea" id="profile-about" name="about"
-                        placeholder="Пара слов о себе"></textarea>
-              <small class="field__hint">До 500 символов.</small>
-              <small class="field__error" data-error="about"></small>
-            </div>
-
-            <div>
-              <button type="submit" class="btn btn--solid" data-loading-text="Сохраняем…">Сохранить</button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <!-- ============ Вкладка: безопасность ============ -->
-      <section class="tab-panel" id="tab-security">
-        <div class="profile__grid">
-
-          <div class="card">
-            <h2 class="card__title">Смена пароля</h2>
-            <p class="card__hint">Текущий пароль проверяет сервер — на клиенте его никто не хранит.</p>
-
-            <form id="passwordForm" class="form" method="post" action="/api/profile/password/">
-
+            <form
+              id="profileForm"
+              class="form"
+              method="post"
+              action="/api/profile/"
+            >
               <div class="notice" data-notice></div>
 
               <div class="field">
-                <label class="field__label" for="current_password">Текущий пароль</label>
-                <div class="field__control">
-                  <input class="input" type="password" id="current_password" name="current_password"
-                         autocomplete="current-password" required>
-                  <button class="peek" type="button" data-peek="current_password" aria-label="Показать пароль">👁</button>
-                </div>
-                <small class="field__error" data-error="current_password"></small>
+                <label class="field__label" for="profile-name">Имя</label>
+                <input
+                  class="input"
+                  type="text"
+                  id="profile-name"
+                  name="name"
+                  placeholder="Ваше имя"
+                  autocomplete="name"
+                  required
+                />
+                <small class="field__error" data-error="name"></small>
               </div>
 
               <div class="field">
-                <label class="field__label" for="new_password">Новый пароль</label>
-                <div class="field__control">
-                  <input class="input" type="password" id="new_password" name="password"
-                         placeholder="Минимум 8 символов" autocomplete="new-password" required>
-                  <button class="peek" type="button" data-peek="new_password" aria-label="Показать пароль">👁</button>
-                </div>
-                <small class="field__error" data-error="password"></small>
+                <label class="field__label" for="profile-city">Город</label>
+                <input
+                  class="input"
+                  type="text"
+                  id="profile-city"
+                  name="city"
+                  placeholder="Алматы"
+                />
+                <small class="field__error" data-error="city"></small>
               </div>
 
               <div class="field">
-                <label class="field__label" for="new_password2">Повторите новый пароль</label>
-                <input class="input" type="password" id="new_password2" name="password2"
-                       autocomplete="new-password" required>
-                <small class="field__error" data-error="password2"></small>
+                <label class="field__label" for="profile-about">О себе</label>
+                <textarea
+                  class="textarea"
+                  id="profile-about"
+                  name="about"
+                  placeholder="Пара слов о себе"
+                ></textarea>
+                <small class="field__hint">До 500 символов.</small>
+                <small class="field__error" data-error="about"></small>
               </div>
 
               <div>
-                <button type="submit" class="btn btn--solid" data-loading-text="Меняем…">Сменить пароль</button>
+                <button
+                  type="submit"
+                  class="btn btn--solid"
+                  data-loading-text="Сохраняем…"
+                >
+                  Сохранить
+                </button>
               </div>
             </form>
           </div>
+        </section>
 
-          <div class="card danger-zone">
-            <h2 class="card__title">Сессия</h2>
-            <p class="card__hint">
-              Выход отправляет <code>POST /auth/logout/</code> и очищает локальные данные.
-            </p>
-            <button type="button" class="btn btn--danger btn--block" data-logout="index.html">
-              Выйти из аккаунта
-            </button>
+        <!-- ============ Вкладка: безопасность ============ -->
+        <section class="tab-panel" id="tab-security">
+          <div class="profile__grid">
+            <div class="card">
+              <h2 class="card__title">Смена пароля</h2>
+              <p class="card__hint">
+                Текущий пароль проверяет сервер — на клиенте его никто не
+                хранит.
+              </p>
+
+              <form
+                id="passwordForm"
+                class="form"
+                method="post"
+                action="/api/profile/password/"
+              >
+                <div class="notice" data-notice></div>
+
+                <div class="field">
+                  <label class="field__label" for="current_password"
+                    >Текущий пароль</label
+                  >
+                  <div class="field__control">
+                    <input
+                      class="input"
+                      type="password"
+                      id="current_password"
+                      name="current_password"
+                      autocomplete="current-password"
+                      required
+                    />
+                    <button
+                      class="peek"
+                      type="button"
+                      data-peek="current_password"
+                      aria-label="Показать пароль"
+                    >
+                      👁
+                    </button>
+                  </div>
+                  <small
+                    class="field__error"
+                    data-error="current_password"
+                  ></small>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="new_password"
+                    >Новый пароль</label
+                  >
+                  <div class="field__control">
+                    <input
+                      class="input"
+                      type="password"
+                      id="new_password"
+                      name="password"
+                      placeholder="Минимум 8 символов"
+                      autocomplete="new-password"
+                      required
+                    />
+                    <button
+                      class="peek"
+                      type="button"
+                      data-peek="new_password"
+                      aria-label="Показать пароль"
+                    >
+                      👁
+                    </button>
+                  </div>
+                  <small class="field__error" data-error="password"></small>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="new_password2"
+                    >Повторите новый пароль</label
+                  >
+                  <input
+                    class="input"
+                    type="password"
+                    id="new_password2"
+                    name="password2"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <small class="field__error" data-error="password2"></small>
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn--solid"
+                    data-loading-text="Меняем…"
+                  >
+                    Сменить пароль
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card danger-zone">
+              <h2 class="card__title">Сессия</h2>
+              <p class="card__hint">
+                Выход отправляет <code>POST /auth/logout/</code> и очищает
+                локальные данные.
+              </p>
+              <button
+                type="button"
+                class="btn btn--danger btn--block"
+                data-logout="/"
+              >
+                Выйти из аккаунта
+              </button>
+            </div>
           </div>
+        </section>
+      </div>
+    </main>
+    {% include 'include/footer.html' %} {% load static %}
 
-        </div>
-      </section>
-
-    </div>
-  </main>
-{% include 'include/footer.html' %}
-
-
-{% load static %}
-
-<script src="{% static 'js/config.js' %}"></script>
-<script src="{% static 'js/api.js' %}"></script>
-<script src="{% static 'js/mock-api.js' %}"></script>
-<script src="{% static 'js/forms.js' %}"></script>
-<script src="{% static 'js/session.js' %}"></script>
-<script src="{% static 'js/ui.js' %}"></script>
-<script src="{% static 'js/profile.js' %}"></script>
-</body>
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/api.js' %}"></script>
+    <script src="{% static 'js/mock-api.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script src="{% static 'js/session.js' %}"></script>
+    <script src="{% static 'js/ui.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+  </body>
 </html>

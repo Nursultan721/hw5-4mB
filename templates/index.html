@@ -1,190 +1,260 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo — шаблон сайта с личным кабинетом</title>
-  <meta name="description" content="Учебный шаблон на HTML, CSS и JavaScript: главная, регистрация, вход и профиль. Формы готовы к подключению к любому бэкенду.">
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexo — шаблон сайта с личным кабинетом</title>
+    <meta
+      name="description"
+      content="Учебный шаблон на HTML, CSS и JavaScript: главная, регистрация, вход и профиль. Формы готовы к подключению к любому бэкенду."
+    />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}" />
+  </head>
+  <body>
+    <!-- ===================== Шапка ===================== -->
+    {% include 'include/header.html' %}
 
-  <!-- ===================== Шапка ===================== -->
-{% include 'include/header.html' %}
+    <main class="page">
+      <!-- ===================== Первый экран ===================== -->
+      <section class="container hero">
+        <div>
+          <span class="badge">HTML · CSS · JavaScript</span>
 
+          <h1 class="hero__title">Шаблон сайта с <em>личным кабинетом</em></h1>
 
-  <main class="page">
+          <p class="hero__text">
+            Главная, регистрация, вход и профиль — готовая вёрстка без
+            фреймворков. Формы отправляются на сервер через один настраиваемый
+            слой: меняете адрес API в <code>js/config.js</code> — и кабинет
+            работает с вашим бэкендом.
+          </p>
 
-    <!-- ===================== Первый экран ===================== -->
-    <section class="container hero">
-      <div>
-        <span class="badge">HTML · CSS · JavaScript</span>
+          <div class="hero__actions">
+            <a
+              href="{% url 'register' %}"
+              class="btn btn--solid hidden"
+              data-auth="guest"
+              >Создать аккаунт</a
+            >
+            <a
+              href="{% url 'login' %}"
+              class="btn btn--outline hidden"
+              data-auth="guest"
+              >У меня уже есть аккаунт</a
+            >
+            <a
+              href="{% url 'profile' %}"
+              class="btn btn--solid hidden"
+              data-auth="user"
+              >Открыть личный кабинет</a
+            >
+            <a href="#how" class="btn btn--ghost">Как это устроено</a>
+          </div>
 
-        <h1 class="hero__title">Шаблон сайта с <em>личным кабинетом</em></h1>
-
-        <p class="hero__text">
-          Главная, регистрация, вход и профиль — готовая вёрстка без фреймворков.
-          Формы отправляются на сервер через один настраиваемый слой: меняете
-          адрес API в <code>js/config.js</code> — и кабинет работает с вашим бэкендом.
-        </p>
-
-        <div class="hero__actions">
-          <a href="register.html" class="btn btn--solid hidden" data-auth="guest">Создать аккаунт</a>
-          <a href="login.html" class="btn btn--outline hidden" data-auth="guest">У меня уже есть аккаунт</a>
-          <a href="profile.html" class="btn btn--solid hidden" data-auth="user">Открыть личный кабинет</a>
-          <a href="#how" class="btn btn--ghost">Как это устроено</a>
-        </div>
-
-        <div class="hero__stats">
-          <div class="hero__stat"><b>4</b><span>готовые страницы</span></div>
-          <div class="hero__stat"><b>0</b><span>зависимостей</span></div>
-          <div class="hero__stat"><b>1</b><span>файл настройки API</span></div>
-        </div>
-      </div>
-
-      <!-- декоративное превью кабинета -->
-      <div class="window" aria-hidden="true">
-        <div class="window__bar">
-          <span class="window__dot"></span>
-          <span class="window__dot"></span>
-          <span class="window__dot"></span>
-        </div>
-        <div class="window__body">
-          <div class="window__row">
-            <div class="window__avatar">ИИ</div>
-            <div style="flex:1">
-              <div class="skeleton skeleton--w60" style="margin-bottom:8px"></div>
-              <div class="skeleton skeleton--w40"></div>
+          <div class="hero__stats">
+            <div class="hero__stat"><b>4</b><span>готовые страницы</span></div>
+            <div class="hero__stat"><b>0</b><span>зависимостей</span></div>
+            <div class="hero__stat">
+              <b>1</b><span>файл настройки API</span>
             </div>
           </div>
-          <div class="skeleton skeleton--tall"></div>
-          <div class="window__grid">
+        </div>
+
+        <!-- декоративное превью кабинета -->
+        <div class="window" aria-hidden="true">
+          <div class="window__bar">
+            <span class="window__dot"></span>
+            <span class="window__dot"></span>
+            <span class="window__dot"></span>
+          </div>
+          <div class="window__body">
+            <div class="window__row">
+              <div class="window__avatar">ИИ</div>
+              <div style="flex: 1">
+                <div
+                  class="skeleton skeleton--w60"
+                  style="margin-bottom: 8px"
+                ></div>
+                <div class="skeleton skeleton--w40"></div>
+              </div>
+            </div>
             <div class="skeleton skeleton--tall"></div>
-            <div class="skeleton skeleton--tall"></div>
+            <div class="window__grid">
+              <div class="skeleton skeleton--tall"></div>
+              <div class="skeleton skeleton--tall"></div>
+            </div>
+            <div class="skeleton skeleton--w40"></div>
           </div>
-          <div class="skeleton skeleton--w40"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===================== Как это работает ===================== -->
-    <section class="container section" id="how">
-      <div class="section__head">
-        <span class="badge">Три шага</span>
-        <h2 class="section__title">Подключение бэкенда без переписывания шаблона</h2>
-        <p class="section__text">
-          Разметка и логика страниц не знают, какой у вас сервер. Всё общение
-          с ним собрано в двух файлах, а форматы запросов и ответов описаны заранее.
-        </p>
-      </div>
-
-      <div class="steps">
-        <article class="step">
-          <div class="step__num">ШАГ 01</div>
-          <h3>Открываете config.js</h3>
-          <p>Ставите <code>USE_MOCK: false</code>, пишете адрес сервера и пути эндпоинтов. Это единственный файл, который нужно править.</p>
-        </article>
-
-        <article class="step">
-          <div class="step__num">ШАГ 02</div>
-          <h3>Отвечаете в нужном формате</h3>
-          <p>Успех — <code>{ user: {…} }</code>, ошибка — <code>{ errors: { email: "текст" } }</code>. Формат описан в шапке <code>js/api.js</code>.</p>
-        </article>
-
-        <article class="step">
-          <div class="step__num">ШАГ 03</div>
-          <h3>Ничего больше не трогаете</h3>
-          <p>Ошибки сами встают под нужные поля, кнопки блокируются на время запроса, сессия подхватывается из <code>/auth/me</code>.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== Возможности ===================== -->
-    <section class="container section" id="features">
-      <div class="section__head">
-        <span class="badge">Что внутри</span>
-        <h2 class="section__title">Возможности шаблона</h2>
-      </div>
-
-      <div class="grid-2">
-        <article class="tile">
-          <div class="tile__icon">🔐</div>
-          <div>
-            <h3>Регистрация и вход</h3>
-            <p>Проверка полей на клиенте, разбор ответа сервера, защита от повторной отправки формы.</p>
-          </div>
-        </article>
-
-        <article class="tile">
-          <div class="tile__icon">👤</div>
-          <div>
-            <h3>Личный кабинет</h3>
-            <p>Вкладки «Обзор», «Настройки» и «Безопасность»: данные аккаунта, редактирование, смена пароля.</p>
-          </div>
-        </article>
-
-        <article class="tile">
-          <div class="tile__icon">🔌</div>
-          <div>
-            <h3>Один слой запросов</h3>
-            <p>CSRF-токен, cookie сессии, коды 400/401/404/500 и обрыв сети обрабатываются в одном месте.</p>
-          </div>
-        </article>
-
-        <article class="tile">
-          <div class="tile__icon">🧪</div>
-          <div>
-            <h3>Демо-режим</h3>
-            <p>Пока сервера нет, шаблон работает на заглушке с тем же форматом ответов — можно показывать заказчику.</p>
-          </div>
-        </article>
-
-        <article class="tile">
-          <div class="tile__icon">📱</div>
-          <div>
-            <h3>Адаптивная вёрстка</h3>
-            <p>Мобильное меню, гибкие сетки, крупные поля ввода — корректно на телефоне и десктопе.</p>
-          </div>
-        </article>
-
-        <article class="tile">
-          <div class="tile__icon">📄</div>
-          <div>
-            <h3>Честные формы</h3>
-            <p>У каждой формы есть <code>method</code>, <code>action</code> и <code>name</code> у полей — работает и без JavaScript.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== Призыв ===================== -->
-    <section class="container section">
-      <div class="cta">
-        <div>
-          <h2>Попробуйте кабинет прямо сейчас</h2>
-          <p>Регистрация занимает полминуты и работает без сервера — в демо-режиме.</p>
+      <!-- ===================== Как это работает ===================== -->
+      <section class="container section" id="how">
+        <div class="section__head">
+          <span class="badge">Три шага</span>
+          <h2 class="section__title">
+            Подключение бэкенда без переписывания шаблона
+          </h2>
+          <p class="section__text">
+            Разметка и логика страниц не знают, какой у вас сервер. Всё общение
+            с ним собрано в двух файлах, а форматы запросов и ответов описаны
+            заранее.
+          </p>
         </div>
-        <div class="hero__actions" style="margin:0">
-          <a href="register.html" class="btn btn--solid hidden" data-auth="guest">Создать аккаунт</a>
-          <a href="login.html" class="btn btn--outline hidden" data-auth="guest">Войти</a>
-          <a href="profile.html" class="btn btn--solid hidden" data-auth="user">Перейти в кабинет</a>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step__num">ШАГ 01</div>
+            <h3>Открываете config.js</h3>
+            <p>
+              Ставите <code>USE_MOCK: false</code>, пишете адрес сервера и пути
+              эндпоинтов. Это единственный файл, который нужно править.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step__num">ШАГ 02</div>
+            <h3>Отвечаете в нужном формате</h3>
+            <p>
+              Успех — <code>{ user: {…} }</code>, ошибка —
+              <code>{ errors: { email: "текст" } }</code>. Формат описан в шапке
+              <code>js/api.js</code>.
+            </p>
+          </article>
+
+          <article class="step">
+            <div class="step__num">ШАГ 03</div>
+            <h3>Ничего больше не трогаете</h3>
+            <p>
+              Ошибки сами встают под нужные поля, кнопки блокируются на время
+              запроса, сессия подхватывается из <code>/auth/me</code>.
+            </p>
+          </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </main>
+      <!-- ===================== Возможности ===================== -->
+      <section class="container section" id="features">
+        <div class="section__head">
+          <span class="badge">Что внутри</span>
+          <h2 class="section__title">Возможности шаблона</h2>
+        </div>
 
-  <!-- ===================== Подвал ===================== -->
-{% include 'include/footer.html' %}
+        <div class="grid-2">
+          <article class="tile">
+            <div class="tile__icon">🔐</div>
+            <div>
+              <h3>Регистрация и вход</h3>
+              <p>
+                Проверка полей на клиенте, разбор ответа сервера, защита от
+                повторной отправки формы.
+              </p>
+            </div>
+          </article>
 
-  <!-- Порядок важен: настройки → слой запросов → заглушка → интерфейс -->
-{% load static %}
+          <article class="tile">
+            <div class="tile__icon">👤</div>
+            <div>
+              <h3>Личный кабинет</h3>
+              <p>
+                Вкладки «Обзор», «Настройки» и «Безопасность»: данные аккаунта,
+                редактирование, смена пароля.
+              </p>
+            </div>
+          </article>
 
-<!-- <script src="{% static 'js/config.js' %}"></script> -->
-<!-- <script src="{% static 'js/api.js' %}"></script> -->
-<script src="{% static 'js/session.js' %}"></script>
-<script src="{% static 'js/ui.js' %}"></script>
-</body>
+          <article class="tile">
+            <div class="tile__icon">🔌</div>
+            <div>
+              <h3>Один слой запросов</h3>
+              <p>
+                CSRF-токен, cookie сессии, коды 400/401/404/500 и обрыв сети
+                обрабатываются в одном месте.
+              </p>
+            </div>
+          </article>
+
+          <article class="tile">
+            <div class="tile__icon">🧪</div>
+            <div>
+              <h3>Демо-режим</h3>
+              <p>
+                Пока сервера нет, шаблон работает на заглушке с тем же форматом
+                ответов — можно показывать заказчику.
+              </p>
+            </div>
+          </article>
+
+          <article class="tile">
+            <div class="tile__icon">📱</div>
+            <div>
+              <h3>Адаптивная вёрстка</h3>
+              <p>
+                Мобильное меню, гибкие сетки, крупные поля ввода — корректно на
+                телефоне и десктопе.
+              </p>
+            </div>
+          </article>
+
+          <article class="tile">
+            <div class="tile__icon">📄</div>
+            <div>
+              <h3>Честные формы</h3>
+              <p>
+                У каждой формы есть <code>method</code>, <code>action</code> и
+                <code>name</code> у полей — работает и без JavaScript.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===================== Призыв ===================== -->
+      <section class="container section">
+        <div class="cta">
+          <div>
+            <h2>Попробуйте кабинет прямо сейчас</h2>
+            <p>
+              Регистрация занимает полминуты и работает без сервера — в
+              демо-режиме.
+            </p>
+          </div>
+          <div class="hero__actions" style="margin: 0">
+            <a
+              href="{% url 'register' %}"
+              class="btn btn--solid hidden"
+              data-auth="guest"
+              >Создать аккаунт</a
+            >
+            <a
+              href="{% url 'login' %}"
+              class="btn btn--outline hidden"
+              data-auth="guest"
+              >Войти</a
+            >
+            <a
+              href="{% url 'profile' %}"
+              class="btn btn--solid hidden"
+              data-auth="user"
+              >Перейти в кабинет</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Подвал ===================== -->
+    {% include 'include/footer.html' %}
+
+    <!-- Порядок важен: настройки → слой запросов → заглушка → интерфейс -->
+    {% load static %}
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/api.js' %}"></script>
+    <script src="{% static 'js/mock-api.js' %}"></script>
+    <script src="{% static 'js/session.js' %}"></script>
+    <script src="{% static 'js/ui.js' %}"></script>
+  </body>
 </html>
